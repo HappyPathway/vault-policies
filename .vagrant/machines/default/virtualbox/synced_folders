@@ -1,0 +1,1 @@
+{"virtualbox":{"/srv/terraform":{"owner":"root","group":"root","guestpath":"/srv/terraform","hostpath":"/Users/davearnold/git/vault-demo/terraform","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/davearnold/git/vault-demo","disabled":false,"__vagrantfile":true}}}
