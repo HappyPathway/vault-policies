@@ -9,11 +9,11 @@ resource "vault_policy" "ec2FullAccessRO" {
 }
 
 resource "vault_policy" "sshDev" {
-  name   = "admin_ro"
-  policy = "${file("vault_policies/ec2_full_ro.hcl")}"
+  name   = "ssh_dev"
+  policy = "${file("vault_policies/ssh_dev.hcl")}"
 }
 
 resource "vault_policy" "sshAdmin" {
-  name   = "admin_ro"
-  policy = "${file("vault_policies/ec2_full_ro.hcl")}"
+  name   = "ssh_admin"
+  policy = "${file("vault_policies/ssh_admin.hcl")}"
 }
