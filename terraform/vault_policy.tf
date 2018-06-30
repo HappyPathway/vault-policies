@@ -7,3 +7,13 @@ resource "vault_policy" "ec2FullAccessRO" {
   name   = "admin_ro"
   policy = "${file("vault_policies/ec2_full_ro.hcl")}"
 }
+
+resource "vault_policy" "sshDev" {
+  name   = "admin_ro"
+  policy = "${file("vault_policies/ec2_full_ro.hcl")}"
+}
+
+resource "vault_policy" "sshAdmin" {
+  name   = "admin_ro"
+  policy = "${file("vault_policies/ec2_full_ro.hcl")}"
+}

@@ -1,0 +1,117 @@
+#!/usr/bin/env python
+import json
+import subprocess, shlex
+import os
+from tempfile import NamedTemporaryFile as ntf
+from collections import defaultdict
+
+def read_all_with_name(path):
+    d = list_path(path)
+    _data = defaultdict(list)
+    for x in d:
+        _path = os.path.join(path, x)
+        base_path = os.path.basename(_path)
+        _data[base_path].append(get_secrets_from_path(_path).get('data'))
+    return _data
+
+def read_all(path):
+    d = list_path(path)
+    _data = list()
+    for x in d:
+        _path = os.path.join(path, x)
+        base_path = os.path.basename(_path)
+        _data.append(get_secrets_from_path(_path).get('data'))
+    return _data
+
+def list_path(path):
+    p = subprocess.Popen(shlex.split("vault list -format=json {0}".format(path)),
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE)
+    out, err = p.communicate()
+    return json.loads(out)
+
+
+def get_secrets_from_path(path):
+    p = subprocess.Popen(shlex.split("vault read -format=json {0}".format(path)), 
+                            stdout=subprocess.PIPE, 
+                            stderr=subprocess.PIPE)
+
+    out, err = p.communicate()
+    return json.loads(out)
+
+
+def delete_path(path):
+    p = subprocess.Popen(shlex.split("vault delete {0}".format(path)), 
+                            stdout=subprocess.PIPE, 
+                            stderr=subprocess.PIPE)
+
+    out, err = p.communicate()
+    return dict(rc=p.returncode, stdout=out, stderr=err)
+
+
+def edit_secrets(secrets):
+    _ntf = ntf(mode="w", delete=False)
+    if 'data' in secrets:
+        _d = secrets.get('data')
+    else:
+        _d = secrets
+    _ntf.write(json.dumps(_d, separators=(',',':'), indent=4, sort_keys=True))
+    _ntf.close()
+    return _ntf.name
+
+
+def save_secrets(path, var, val):
+    try:
+        secrets = get_secrets_from_path(path)
+        _data = secrets.get('data')
+    except Exception, e:
+        _data = dict()
+    _data[var] = val
+    tmp_secrets_file = edit_secrets(_data)
+    p = subprocess.Popen(shlex.split("vault write {0} @{1}".format(path, tmp_secrets_file)), 
+                            stdout=subprocess.PIPE, 
+                            stderr=subprocess.PIPE)
+    out, err = p.communicate()
+
+
+def get_secret_from_path_with_var(path, var):
+    _secrets = get_secrets_from_path(path)
+    return _secrets.get('data').get(var)
+
+
+def main():
+    module = AnsibleModule(
+        argument_spec = dict(
+            path = dict(required=True),
+            attr = dict(required=True),
+            fact = dict(required=False),
+            vault_addr = dict(required=False),
+            vault_token = dict(required=False),
+            vault_skip_verify = dict(required=False),
+        )
+    )
+
+    for k, v in {k:v for k, v in module.params.items() if 'vault' in k}.items():
+        if v:
+            os.environ[k.upper()] = v
+
+    path = module.params.get('path')
+    fact = module.params.get('fact')
+    attr = module.params.get('attr')
+
+    
+    try:
+        d = dict()
+        d[fact] = get_secret_from_path_with_var(path, attr).get('data')
+        module.exit_json(changed=False, ansible_facts=d)
+    except Exception, e:
+        module.fail_json(changed=False, msg=str(e))
+
+
+from ansible.module_utils.basic import AnsibleModule
+if __name__ == '__main__':
+    main()
+
+
+
+    
