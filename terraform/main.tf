@@ -34,12 +34,12 @@ resource "vault_policy" "ec2_dev" {
 
 resource "vault_policy" "ssh_dev_user" {
   name   = "ssh_dev_user"
-  policy = "${file("vault_policies/ssh_dev.hcl")}"
+  policy = "${file("vault_policies/ssh_dev_user.hcl")}"
 }
 
 resource "vault_policy" "ssh_dev_host" {
   name   = "ssh_dev_host"
-  policy = "${file("vault_policies/ssh_dev.hcl")}"
+  policy = "${file("vault_policies/ssh_dev_host.hcl")}"
 }
 
 resource "vault_policy" "ssh_production" {
@@ -49,10 +49,5 @@ resource "vault_policy" "ssh_production" {
 
 resource "vault_policy" "ssh_admin" {
   name   = "ssh_admin"
-  policy = "${file("vault_policies/ssh_production.hcl")}"
-}
-
-resource "vault_policy" "ssh_production" {
-  name   = "ssh_production"
-  policy = "${file("vault_policies/ssh_production.hcl")}"
+  policy = "${file("vault_policies/ssh_admin.hcl")}"
 }
