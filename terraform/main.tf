@@ -51,3 +51,23 @@ resource "vault_policy" "production" {
   name   = "production"
   policy = "${file("vault_policies/production_host.hcl")}"
 }
+
+resource "vault_generic_secret" "ssh_dev_ubuntu" {
+  path      = "ssh-dev/roles/dev"
+  data_json = "${file("./ssh_roles/ubuntu.json")}"
+}
+
+resource "vault_generic_secret" "ssh_dev_root" {
+  path      = "ssh-dev/roles/root"
+  data_json = "${file("./ssh_roles/root.json")}"
+}
+
+resource "vault_generic_secret" "ssh_production_ubuntu" {
+  path      = "ssh-production/roles/dev"
+  data_json = "${file("./ssh_roles/ubuntu.json")}"
+}
+
+resource "vault_generic_secret" "ssh_production_root" {
+  path      = "ssh-production/roles/root"
+  data_json = "${file("./ssh_roles/root.json")}"
+}
