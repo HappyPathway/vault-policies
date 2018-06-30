@@ -17,3 +17,8 @@ resource "vault_policy" "sshAdmin" {
   name   = "ssh_admin"
   policy = "${file("vault_policies/ssh_admin.hcl")}"
 }
+
+resource "vault_policy" "sshHost" {
+  name   = "ssh_host"
+  policy = "${file("vault_policies/ssh_ca_host.hcl")}"
+}

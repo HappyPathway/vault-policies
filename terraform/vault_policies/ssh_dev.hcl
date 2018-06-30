@@ -1,3 +1,3 @@
-path "ssh-dev_host/sign/ssh-user" {
+path "ssh-dev/sign/ssh-user" {
   policy = "write"
 }
