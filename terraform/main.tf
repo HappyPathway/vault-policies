@@ -28,13 +28,13 @@ resource "vault_policy" "admin" {
 
 # Operators will Full Access to EC2 but only user level access to hosts
 resource "vault_policy" "operator" {
-  name   = "ssh_dev_host"
+  name   = "operator"
   policy = "${file("vault_policies/operator.hcl")}"
 }
 
 # Dev Users will have ReadOnly Access to EC2 and user level access to hosts
 resource "vault_policy" "dev_user" {
-  name   = "ssh_dev_user"
+  name   = "developer"
   policy = "${file("vault_policies/dev.hcl")}"
 }
 
@@ -43,11 +43,11 @@ resource "vault_policy" "dev_user" {
 # The assumption is that hosts in the dev environment will have access to the dev key
 # and host in in the production environment will have access to the production key
 resource "vault_policy" "dev_host" {
-  name   = "ec2_dev"
+  name   = "dev"
   policy = "${file("vault_policies/dev_host.hcl")}"
 }
 
 resource "vault_policy" "production" {
-  name   = "ssh_production"
+  name   = "production"
   policy = "${file("vault_policies/production_host.hcl")}"
 }

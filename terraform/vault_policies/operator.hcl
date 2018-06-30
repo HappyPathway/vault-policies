@@ -6,3 +6,7 @@ path "aws/creds/ec2_admin" {
 path "ssh-dev/sign/dev" {
   policy = "write"
 }
+
+path "ssh-production/sign/dev" {
+  policy = "write"
+}
