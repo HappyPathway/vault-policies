@@ -1,4 +1,6 @@
-vault write ssh-dev/roles/ubuntu -<<"EOH"
+#!/bin/bash
+machine_role=${1}
+vault write ssh-${machine_role}/roles/dev -<<"EOH"
 {
   "allow_user_certificates": true,
   "allowed_users": "*",
@@ -9,6 +11,6 @@ vault write ssh-dev/roles/ubuntu -<<"EOH"
   ],
   "key_type": "ca",
   "default_user": "ubuntu",
-  "ttl": "30m0s"
+  "ttl": "5m0s"
 }
 EOH
