@@ -13,12 +13,7 @@ resource "vault_policy" "sshDev" {
   policy = "${file("vault_policies/ssh_dev.hcl")}"
 }
 
-resource "vault_policy" "sshAdmin" {
-  name   = "ssh_admin"
-  policy = "${file("vault_policies/ssh_admin.hcl")}"
-}
-
-resource "vault_policy" "sshHost" {
-  name   = "ssh_host"
-  policy = "${file("vault_policies/ssh_ca_host.hcl")}"
+resource "vault_policy" "sshProduction" {
+  name   = "ssh_production"
+  policy = "${file("vault_policies/ssh_dev.hcl")}"
 }
