@@ -51,19 +51,3 @@ resource "vault_policy" "production" {
   name   = "production"
   policy = "${file("vault_policies/production_host.hcl")}"
 }
-
-resource "null_resource" "cluster" {
-  # Changes to any instance of the cluster requires re-provisioning
-  triggers {
-    dev_host        = "${vault_policy.dev_host.policy}"
-    production_host = "${vault_policy.production.policy}"
-  }
-
-  provisioner "local-exec" {
-    command = "bash ${path.root}/ssh_roles/dev.sh"
-  }
-
-  provisioner "local-exec" {
-    command = "bash ${path.root}/ssh_roles/production.sh"
-  }
-}
