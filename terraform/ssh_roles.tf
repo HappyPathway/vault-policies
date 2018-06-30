@@ -12,7 +12,7 @@ resource "vault_mount" "ssh_production_mount" {
 
 # vault write ssh-production/config/ca generate_signing_key=true
 resource "vault_generic_secret" "ssh_dev_signing" {
-  path      = "ssh-production/config/ca"
+  path      = "ssh-dev/config/ca"
   data_json = "${file("./ssh_roles/generate_signing.json")}"
 }
 
