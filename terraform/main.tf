@@ -24,12 +24,12 @@ resource "vault_policy" "admin" {
 
 resource "vault_policy" "ec2_admin" {
   name   = "ec2_admin"
-  policy = "${file("vault_policies/ec2_full.hcl")}"
+  policy = "${file("vault_policies/ec2_admin.hcl")}"
 }
 
 resource "vault_policy" "ec2_dev" {
   name   = "ec2_dev"
-  policy = "${file("vault_policies/ec2_full_ro.hcl")}"
+  policy = "${file("vault_policies/ec2_dev.hcl")}"
 }
 
 resource "vault_policy" "ssh_dev_user" {
