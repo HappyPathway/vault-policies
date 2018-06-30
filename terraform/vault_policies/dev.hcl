@@ -1,8 +1,4 @@
-path "*" {
-  capabilities = ["create", "read", "update", "delete", "list"]
-}
-
-path "aws/creds/ec2_admin" {
+path "aws/creds/ec2_dev" {
   policy = "read"
 }
 

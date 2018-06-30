@@ -5,6 +5,7 @@ resource "vault_aws_secret_backend" "aws" {
   max_lease_ttl_seconds     = "${var.max_lease_ttl}"
 }
 
+# IAM Roles that Vault creates when aws backend is read with appropriate Vault Token
 resource "vault_aws_secret_backend_role" "ec2_admin" {
   backend = "${vault_aws_secret_backend.aws.path}"
   name    = "ec2_admin"
@@ -17,37 +18,36 @@ resource "vault_aws_secret_backend_role" "ec2_dev" {
   policy  = "${file("./iam_roles/ec2_dev.json")}"
 }
 
+# User Based Roles
+# Admins will be able to login as root to all hosts
+# They will also have Full Access to EC2.
 resource "vault_policy" "admin" {
   name   = "admin"
   policy = "${file("vault_policies/admin.hcl")}"
 }
 
-resource "vault_policy" "ec2_admin" {
-  name   = "ec2_admin"
-  policy = "${file("vault_policies/ec2_admin.hcl")}"
-}
-
-resource "vault_policy" "ec2_dev" {
-  name   = "ec2_dev"
-  policy = "${file("vault_policies/ec2_dev.hcl")}"
-}
-
-resource "vault_policy" "ssh_dev_user" {
-  name   = "ssh_dev_user"
-  policy = "${file("vault_policies/ssh_dev_user.hcl")}"
-}
-
-resource "vault_policy" "ssh_dev_host" {
+# Operators will Full Access to EC2 but only user level access to hosts
+resource "vault_policy" "operator" {
   name   = "ssh_dev_host"
-  policy = "${file("vault_policies/ssh_dev_host.hcl")}"
+  policy = "${file("vault_policies/operator.hcl")}"
 }
 
-resource "vault_policy" "ssh_production" {
+# Dev Users will have ReadOnly Access to EC2 and user level access to hosts
+resource "vault_policy" "dev_user" {
+  name   = "ssh_dev_user"
+  policy = "${file("vault_policies/dev.hcl")}"
+}
+
+# Host Based Roles. 
+# Each host will get access only one of these.
+# The assumption is that hosts in the dev environment will have access to the dev key
+# and host in in the production environment will have access to the production key
+resource "vault_policy" "dev_host" {
+  name   = "ec2_dev"
+  policy = "${file("vault_policies/dev_host.hcl")}"
+}
+
+resource "vault_policy" "production" {
   name   = "ssh_production"
-  policy = "${file("vault_policies/ssh_production.hcl")}"
-}
-
-resource "vault_policy" "ssh_admin" {
-  name   = "ssh_admin"
-  policy = "${file("vault_policies/ssh_admin.hcl")}"
+  policy = "${file("vault_policies/production_host.hcl")}"
 }

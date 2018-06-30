@@ -1,4 +1,4 @@
-vault write ssh-dev/roles/ubuntu -<<"EOH"
+vault write ssh-dev/roles/root -<<"EOH"
 {
   "allow_user_certificates": true,
   "allowed_users": "*",
