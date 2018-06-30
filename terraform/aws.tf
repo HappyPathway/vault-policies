@@ -5,16 +5,14 @@ resource "vault_aws_secret_backend" "aws" {
   max_lease_ttl_seconds     = "${var.max_lease_ttl}"
 }
 
-module "ec2FullAccess" {
-  source      = "./modules/vault_aws_roles"
-  policy_file = "./iam_roles/ec2full.json"
-  role_name   = "ec2fullAccess"
-  backend     = "${vault_aws_secret_backend.aws.path}"
+resource "vault_aws_secret_backend_role" "role" {
+  backend = "${vault_aws_secret_backend.aws.path}"
+  name    = "ec2fullAccess"
+  policy  = "${file("./iam_roles/ec2full.json")}"
 }
 
-module "ec2FullAccessRO" {
-  source      = "./modules/vault_aws_roles"
-  policy_file = "./iam_roles/ec2full_ro.json"
-  role_name   = "ec2fullAccessRO"
-  backend     = "${vault_aws_secret_backend.aws.path}"
+resource "vault_aws_secret_backend_role" "role" {
+  backend = "${vault_aws_secret_backend.aws.path}"
+  name    = "ec2fullAccessRO"
+  policy  = "${file("./iam_roles/ec2full_ro.json")}"
 }

@@ -1,10 +1,15 @@
-resource "vault_policy" "ec2FullAccess" {
+resource "vault_policy" "admin" {
   name   = "admin"
+  policy = "${file("vault_policies/admin.hcl")}"
+}
+
+resource "vault_policy" "ec2FullAccess" {
+  name   = "ec2_admin"
   policy = "${file("vault_policies/ec2_full.hcl")}"
 }
 
 resource "vault_policy" "ec2FullAccessRO" {
-  name   = "dev"
+  name   = "ec2_dev"
   policy = "${file("vault_policies/ec2_full_ro.hcl")}"
 }
 
