@@ -11,3 +11,11 @@ variable "max_lease_ttl" {
 variable "default_lease_ttl" {
   default = 500
 }
+
+variable "okta_org" {
+  type = "string"
+}
+
+variable "okta_token" {
+  type = "string"
+}
