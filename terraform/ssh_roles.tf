@@ -1,13 +1,17 @@
 resource "vault_mount" "ssh_dev_mount" {
-  path        = "ssh-dev"
-  type        = "ssh"
-  description = "Enabling SSH Dev"
+  path                      = "ssh-dev"
+  type                      = "ssh"
+  description               = "Enabling SSH Dev"
+  default_lease_ttl_seconds = 1800
+  max_lease_ttl_seconds     = 3600
 }
 
 resource "vault_mount" "ssh_production_mount" {
-  path        = "ssh-production"
-  type        = "ssh"
-  description = "Enabling SSH Production"
+  path                      = "ssh-production"
+  type                      = "ssh"
+  description               = "Enabling SSH Production"
+  default_lease_ttl_seconds = 900
+  max_lease_ttl_seconds     = 1800
 }
 
 # vault write ssh-production/config/ca generate_signing_key=true
