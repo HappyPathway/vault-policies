@@ -26,13 +26,13 @@ resource "vault_okta_auth_backend_user" "admin" {
 }
 
 resource "vault_okta_auth_backend_user" "operator" {
-  path     = "${vault_okta_auth_backend.operator.path}"
+  path     = "${vault_okta_auth_backend.okta.path}"
   username = "operator"
   groups   = ["operator"]
 }
 
 resource "vault_okta_auth_backend_user" "developer" {
-  path     = "${vault_okta_auth_backend.developer.path}"
+  path     = "${vault_okta_auth_backend.okta.path}"
   username = "developer"
   groups   = ["developer"]
 }
