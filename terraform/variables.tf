@@ -19,3 +19,8 @@ variable "okta_org" {
 variable "okta_token" {
   type = "string"
 }
+
+variable "okta_domain" {
+  type    = "string"
+  default = "happypathway.com"
+}

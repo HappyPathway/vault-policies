@@ -21,18 +21,18 @@ resource "vault_okta_auth_backend" "okta" {
 
 resource "vault_okta_auth_backend_user" "admin" {
   path     = "${vault_okta_auth_backend.okta.path}"
-  username = "admin"
+  username = "admin@${var.okta_domain}"
   groups   = ["admin"]
 }
 
 resource "vault_okta_auth_backend_user" "operator" {
   path     = "${vault_okta_auth_backend.okta.path}"
-  username = "operator"
+  username = "operator@${var.okta_domain}"
   groups   = ["operator"]
 }
 
 resource "vault_okta_auth_backend_user" "developer" {
   path     = "${vault_okta_auth_backend.okta.path}"
-  username = "developer"
+  username = "developer@${var.okta_domain}"
   groups   = ["developer"]
 }
