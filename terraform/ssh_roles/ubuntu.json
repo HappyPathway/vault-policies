@@ -8,5 +8,5 @@
   ],
   "key_type": "ca",
   "default_user": "ubuntu",
-  "ttl": "0m10s"
+  "ttl": "5m0s"
 }
