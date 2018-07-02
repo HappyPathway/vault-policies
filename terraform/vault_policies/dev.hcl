@@ -6,3 +6,7 @@ path "aws/creds/ec2_dev" {
 path "ssh-dev/sign/dev" {
   capabilities = ["create", "update"]
 }
+
+path "secret/dev/*" {
+  capabilities = ["create", "update", "read", "list"]
+}
