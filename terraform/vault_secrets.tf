@@ -5,5 +5,5 @@ resource "vault_generic_secret" "dev_secret" {
 
 resource "vault_generic_secret" "production_secret" {
   path      = "secret/production/top_secret"
-  data_json = "${file("./secrets/dev.json")}"
+  data_json = "${file("./secrets/production.json")}"
 }
