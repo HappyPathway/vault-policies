@@ -42,7 +42,7 @@ resource "vault_aws_auth_backend_client" "aws" {
 resource "vault_aws_auth_backend_role" "ec2_dev" {
   backend                        = "${vault_auth_backend.aws.path}"
   bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:instance-profile/Darnold-Hashicorp-dev"
-  auth_type                      = "iam"
+  auth_type                      = "ec2"
   role                           = "Darnold-Hashicorp-dev"
   policies                       = ["default", "dev"]
 
@@ -54,7 +54,7 @@ resource "vault_aws_auth_backend_role" "ec2_dev" {
 resource "vault_aws_auth_backend_role" "ec2_production" {
   backend                        = "${vault_auth_backend.aws.path}"
   bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:instance-profile/Darnold-Hashicorp-production"
-  auth_type                      = "iam"
+  auth_type                      = "ec2"
   role                           = "Darnold-Hashicorp-production"
   policies                       = ["default", "production"]
 
