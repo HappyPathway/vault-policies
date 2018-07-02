@@ -1,0 +1,20 @@
+WARNING! The VAULT_TOKEN environment variable is set! This takes precedence
+over the value set by this command. To use the value set by this command,
+unset the VAULT_TOKEN environment variable or set it to the token displayed
+below.
+
+Success! You are now authenticated. The token information displayed below
+is already stored in the token helper. You do NOT need to run "vault login"
+again. Future Vault requests will automatically use this token.
+
+Key                    Value
+---                    -----
+token                  02b34883-4e22-9c30-7f23-a28c9edff047
+token_accessor         9f5d8e16-3690-c040-fb20-9136db03a6ce
+token_duration         768h
+token_renewable        true
+token_policies         ["default" "developer"]
+identity_policies      []
+policies               ["default" "developer"]
+token_meta_policies    default,developer
+token_meta_username    developer@happypathway.com
