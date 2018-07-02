@@ -4,6 +4,10 @@ resource "aws_iam_user" "vault_iam_user" {
 
 resource "aws_iam_access_key" "vault_iam_user" {
   user = "${aws_iam_user.vault_iam_user.name}"
+
+  depends_on = [
+    "aws_iam_user.vault_iam_user",
+  ]
 }
 
 resource "aws_iam_user_policy" "vault_iam_user" {
@@ -11,6 +15,10 @@ resource "aws_iam_user_policy" "vault_iam_user" {
   user = "${aws_iam_user.vault_iam_user.name}"
 
   policy = "${file("./iam_roles/vault_iam_credentials.json")}"
+
+  depends_on = [
+    "aws_iam_user.vault_iam_user",
+  ]
 }
 
 resource "vault_aws_secret_backend" "aws" {
@@ -18,6 +26,10 @@ resource "vault_aws_secret_backend" "aws" {
   secret_key                = "${aws_iam_access_key.vault_iam_user.secret}"
   default_lease_ttl_seconds = "${var.default_lease_ttl}"
   max_lease_ttl_seconds     = "${var.max_lease_ttl}"
+
+  depends_on = [
+    "aws_iam_user.vault_iam_user",
+  ]
 }
 
 # IAM Roles that Vault creates when aws backend is read with appropriate Vault Token
@@ -25,10 +37,18 @@ resource "vault_aws_secret_backend_role" "ec2_admin" {
   backend = "${vault_aws_secret_backend.aws.path}"
   name    = "ec2_admin"
   policy  = "${file("./iam_roles/ec2_admin.json")}"
+
+  depends_on = [
+    "vault_aws_secret_backend.aws",
+  ]
 }
 
 resource "vault_aws_secret_backend_role" "ec2_dev" {
   backend = "${vault_aws_secret_backend.aws.path}"
   name    = "ec2_dev"
   policy  = "${file("./iam_roles/ec2_dev.json")}"
+
+  depends_on = [
+    "vault_aws_secret_backend.aws",
+  ]
 }

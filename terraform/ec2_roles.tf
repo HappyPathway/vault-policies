@@ -4,6 +4,10 @@ resource "aws_iam_user" "vault_ec2_user" {
 
 resource "aws_iam_access_key" "vault_ec2_user" {
   user = "${aws_iam_user.vault_ec2_user.name}"
+
+  depends_on = [
+    "aws_iam_user.vault_ec2_user",
+  ]
 }
 
 resource "aws_iam_user_policy" "vault_ec2_user" {
@@ -11,16 +15,28 @@ resource "aws_iam_user_policy" "vault_ec2_user" {
   user = "${aws_iam_user.vault_ec2_user.name}"
 
   policy = "${file("./iam_roles/vault_ec2_credentials.json")}"
+
+  depends_on = [
+    "aws_iam_user.vault_ec2_user",
+  ]
 }
 
 resource "vault_auth_backend" "aws" {
   type = "aws"
+
+  depends_on = [
+    "aws_iam_user.vault_ec2_user",
+  ]
 }
 
 resource "vault_aws_auth_backend_client" "aws" {
   backend    = "${vault_auth_backend.aws.path}"
   access_key = "${aws_iam_access_key.vault_ec2_user.id}"
   secret_key = "${aws_iam_access_key.vault_ec2_user.secret}"
+
+  depends_on = [
+    "vault_auth_backend.aws",
+  ]
 }
 
 resource "vault_aws_auth_backend_role" "ec2_dev" {
@@ -30,6 +46,10 @@ resource "vault_aws_auth_backend_role" "ec2_dev" {
   auth_type          = "ec2"
   role               = "ec2_dev"
   policies           = ["default", "dev"]
+
+  depends_on = [
+    "vault_auth_backend.aws",
+  ]
 }
 
 resource "vault_aws_auth_backend_role" "ec2_production" {
@@ -39,4 +59,8 @@ resource "vault_aws_auth_backend_role" "ec2_production" {
   auth_type          = "ec2"
   role               = "ec2_production"
   policies           = ["default", "production"]
+
+  depends_on = [
+    "vault_auth_backend.aws",
+  ]
 }
