@@ -40,11 +40,12 @@ resource "vault_aws_auth_backend_client" "aws" {
 }
 
 resource "vault_aws_auth_backend_role" "ec2_dev" {
-  backend            = "${vault_auth_backend.aws.path}"
-  bound_iam_role_arn = "arn:aws:iam::753646501470:role/Darnold-Hashicorp-dev"
-  auth_type          = "iam"
-  role               = "Darnold-Hashicorp-dev"
-  policies           = ["default", "dev"]
+  backend                        = "${vault_auth_backend.aws.path}"
+  bound_iam_role_arn             = "arn:aws:iam::753646501470:role/Darnold-Hashicorp-dev"
+  bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:instance-profile/Darnold-Hashicorp-dev"
+  auth_type                      = "iam"
+  role                           = "Darnold-Hashicorp-dev"
+  policies                       = ["default", "dev"]
 
   depends_on = [
     "vault_auth_backend.aws",
@@ -52,11 +53,12 @@ resource "vault_aws_auth_backend_role" "ec2_dev" {
 }
 
 resource "vault_aws_auth_backend_role" "ec2_production" {
-  backend            = "${vault_auth_backend.aws.path}"
-  bound_iam_role_arn = "arn:aws:iam::753646501470:role/Darnold-Hashicorp-production"
-  auth_type          = "iam"
-  role               = "Darnold-Hashicorp-production"
-  policies           = ["default", "production"]
+  backend                        = "${vault_auth_backend.aws.path}"
+  bound_iam_role_arn             = "arn:aws:iam::753646501470:role/Darnold-Hashicorp-production"
+  bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:instance-profile/Darnold-Hashicorp-production"
+  auth_type                      = "iam"
+  role                           = "Darnold-Hashicorp-production"
+  policies                       = ["default", "production"]
 
   depends_on = [
     "vault_auth_backend.aws",
