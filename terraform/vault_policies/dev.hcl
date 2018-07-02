@@ -1,8 +1,8 @@
 path "aws/creds/ec2_dev" {
-  policy = "read"
+  capabilities = ["read", "list"]
 }
 
 # this policy will only allow people to login as ubuntu
 path "ssh-dev/sign/dev" {
-  policy = "write"
+  capabilities = ["create", "update"]
 }
