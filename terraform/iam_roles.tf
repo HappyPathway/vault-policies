@@ -1,5 +1,5 @@
 resource "aws_iam_user" "vault_iam_user" {
-  name = "vault-${var.vault_iam_user}"
+  name = "vault-iam-${var.vault_iam_user}"
 }
 
 resource "aws_iam_access_key" "vault_iam_user" {
