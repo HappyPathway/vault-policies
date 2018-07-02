@@ -1,23 +1,23 @@
-resource "aws_iam_user" "vault_iam_user" {
+resource "aws_iam_user" "vault_ec2_user" {
   name = "vault-${var.vault_ec2_user}"
 }
 
-resource "aws_iam_access_key" "vault_iam_user" {
-  user = "${aws_iam_user.vault_iam_user.name}"
+resource "aws_iam_access_key" "vault_ec2_userr" {
+  user = "${aws_iam_user.vault_ec2_user.name}"
 }
 
-resource "aws_iam_user_policy" "lb_ro" {
+resource "aws_iam_user_policy" "vault_ec2_usery" {
   name = "vault_auth-${var.vault_ec2_user}"
-  user = "${aws_iam_user.vault_iam_user.name}"
+  user = "${aws_iam_user.vault_ec2_user.name}"
 
-  policy = "${file("./iam_roles/vault_auth.json")}"
+  policy = "${file("./iam_roles/vault_ec2_credentials.json")}"
 }
 
 resource "vault_auth_backend" "aws" {
   type = "aws"
 }
 
-resource "vault_aws_auth_backend_client" "example" {
+resource "vault_aws_auth_backend_client" "aws" {
   backend    = "${vault_auth_backend.aws.path}"
   access_key = "${aws_iam_access_key.vault_iam_user.id}"
   secret_key = "${aws_iam_access_key.vault_iam_user.secret}"

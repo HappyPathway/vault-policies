@@ -1,14 +1,6 @@
 variable "vault_leader" {}
 variable "vault_token" {}
 
-variable "vault_aws_access_key" {
-  type = "string"
-}
-
-variable "vault_aws_secret_key" {
-  type = "string"
-}
-
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 
@@ -34,5 +26,9 @@ variable "okta_domain" {
 }
 
 variable "vault_ec2_user" {
+  default = "darnold"
+}
+
+variable "vault_iam_user" {
   default = "darnold"
 }

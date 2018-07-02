@@ -1,3 +1,18 @@
+resource "aws_iam_user" "vault_iam_user" {
+  name = "vault-${var.vault_iam_user}"
+}
+
+resource "aws_iam_access_key" "vault_iam_user" {
+  user = "${aws_iam_user.vault_iam_user.name}"
+}
+
+resource "aws_iam_user_policy" "vault_iam_user" {
+  name = "vault_auth-${var.vault_iam_user}"
+  user = "${aws_iam_user.vault_iam_user.name}"
+
+  policy = "${file("./iam_roles/vault_iam_credentials.json")}"
+}
+
 resource "vault_aws_secret_backend" "aws" {
   access_key                = "${var.aws_access_key}."
   secret_key                = "${var.aws_secret_key}"
