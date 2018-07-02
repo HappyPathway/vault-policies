@@ -30,9 +30,10 @@ resource "vault_auth_backend" "aws" {
 }
 
 resource "vault_aws_auth_backend_client" "aws" {
-  backend    = "${vault_auth_backend.aws.path}"
-  access_key = "${aws_iam_access_key.vault_ec2_user.id}"
-  secret_key = "${aws_iam_access_key.vault_ec2_user.secret}"
+  backend              = "${vault_auth_backend.aws.path}"
+  access_key           = "${aws_iam_access_key.vault_ec2_user.id}"
+  secret_key           = "${aws_iam_access_key.vault_ec2_user.secret}"
+  inferred_entity_type = "ec2_instance"
 
   depends_on = [
     "vault_auth_backend.aws",
@@ -45,6 +46,7 @@ resource "vault_aws_auth_backend_role" "ec2_dev" {
   auth_type                      = "ec2"
   role                           = "Darnold-Hashicorp-dev"
   policies                       = ["default", "dev"]
+  inferred_entity_type           = "ec2_instance"
 
   depends_on = [
     "vault_auth_backend.aws",
