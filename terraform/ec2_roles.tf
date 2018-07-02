@@ -46,6 +46,8 @@ resource "vault_aws_auth_backend_role" "ec2_dev" {
   auth_type                      = "iam"
   role                           = "Darnold-Hashicorp-dev"
   policies                       = ["default", "dev"]
+  inferred_entity_type           = "ec2_instance"
+  inferred_aws_region            = "us-east-1"
 
   depends_on = [
     "vault_auth_backend.aws",
@@ -59,6 +61,8 @@ resource "vault_aws_auth_backend_role" "ec2_production" {
   auth_type                      = "iam"
   role                           = "Darnold-Hashicorp-production"
   policies                       = ["default", "production"]
+  inferred_entity_type           = "ec2_instance"
+  inferred_aws_region            = "us-east-1"
 
   depends_on = [
     "vault_auth_backend.aws",
