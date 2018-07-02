@@ -36,3 +36,8 @@ variable "vault_iam_user" {
 variable "region" {
   default = "us-east-1"
 }
+
+variable "organization" {
+  type        = "string"
+  description = "TFE Organization Name"
+}
