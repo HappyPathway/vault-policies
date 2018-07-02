@@ -19,20 +19,20 @@ resource "vault_okta_auth_backend" "okta" {
   }
 }
 
-resource "vault_okta_auth_backend_user" "admin" {
-  path     = "${vault_okta_auth_backend.okta.path}"
-  username = "admin@${var.okta_domain}"
-  groups   = ["admin"]
+resource "vault_okta_auth_backend_group" "admin" {
+  path       = "${vault_okta_auth_backend.okta.path}"
+  group_name = "admin"
+  policies   = ["default", "admin"]
 }
 
-resource "vault_okta_auth_backend_user" "operator" {
-  path     = "${vault_okta_auth_backend.okta.path}"
-  username = "operator@${var.okta_domain}"
-  groups   = ["operator"]
+resource "vault_okta_auth_backend_group" "operator" {
+  path       = "${vault_okta_auth_backend.okta.path}"
+  group_name = "operators"
+  policies   = ["default", "operator"]
 }
 
-resource "vault_okta_auth_backend_user" "developer" {
-  path     = "${vault_okta_auth_backend.okta.path}"
-  username = "developer@${var.okta_domain}"
-  groups   = ["developer"]
+resource "vault_okta_auth_backend_group" "developer" {
+  path       = "${vault_okta_auth_backend.okta.path}"
+  group_name = "developers"
+  policies   = ["default", "developer"]
 }
