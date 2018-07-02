@@ -29,5 +29,5 @@ resource "vault_policy" "dev" {
 
 resource "vault_policy" "production" {
   name   = "production"
-  policy = "${file("vault_policies/production_host.hcl")}"
+  policy = "${file("vault_policies/production.hcl")}"
 }

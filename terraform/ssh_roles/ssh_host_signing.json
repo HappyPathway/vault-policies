@@ -1,0 +1,7 @@
+{
+    "key_type": "ca",
+    "ttl": "87600h",
+    "allow_host_certificates": true,
+    "allow_subdomains": true,
+    "allowed_domains": "*"
+}

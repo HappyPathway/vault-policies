@@ -16,6 +16,15 @@ resource "vault_generic_secret" "ssh_dev_signing" {
   ]
 }
 
+resource "vault_generic_secret" "ssh_dev_host_signing" {
+  path      = "ssh-dev/roles/host"
+  data_json = "${file("./ssh_roles/ssh_host_signing.json")}"
+
+  depends_on = [
+    "vault_mount.ssh_dev_mount",
+  ]
+}
+
 resource "vault_generic_secret" "ssh_dev_ubuntu" {
   path      = "ssh-dev/roles/dev"
   data_json = "${file("./ssh_roles/ubuntu.json")}"
@@ -45,6 +54,15 @@ resource "vault_mount" "ssh_production_mount" {
 resource "vault_generic_secret" "ssh_production_signing" {
   path      = "ssh-production/config/ca"
   data_json = "${file("./ssh_roles/generate_signing.json")}"
+
+  depends_on = [
+    "vault_mount.ssh_production_mount",
+  ]
+}
+
+resource "vault_generic_secret" "ssh_production_host_signing" {
+  path      = "ssh-production/roles/host"
+  data_json = "${file("./ssh_roles/ssh_host_signing.json")}"
 
   depends_on = [
     "vault_mount.ssh_production_mount",
