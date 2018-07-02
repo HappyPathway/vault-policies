@@ -13,18 +13,18 @@ resource "vault_policy" "operator" {
 }
 
 # Dev Users will have ReadOnly Access to EC2 and user level access to hosts
-resource "vault_policy" "dev_user" {
+resource "vault_policy" "developer" {
   name   = "developer"
-  policy = "${file("vault_policies/dev.hcl")}"
+  policy = "${file("vault_policies/developer.hcl")}"
 }
 
 # Host Based Roles. 
 # Each host will get access only one of these.
 # The assumption is that hosts in the dev environment will have access to the dev key
 # and host in in the production environment will have access to the production key
-resource "vault_policy" "dev_host" {
+resource "vault_policy" "dev" {
   name   = "dev"
-  policy = "${file("vault_policies/dev_host.hcl")}"
+  policy = "${file("vault_policies/dev.hcl")}"
 }
 
 resource "vault_policy" "production" {
