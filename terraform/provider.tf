@@ -3,4 +3,6 @@ provider "vault" {
   token   = "${var.vault_token}"
 }
 
-provider "aws" {}
+provider "aws" {
+  region = "us-east-1"
+}

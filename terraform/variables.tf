@@ -32,3 +32,7 @@ variable "vault_ec2_user" {
 variable "vault_iam_user" {
   default = "darnold"
 }
+
+variable "region" {
+  default = "us-east-1"
+}
