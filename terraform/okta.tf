@@ -2,6 +2,8 @@ resource "vault_okta_auth_backend" "okta" {
   description  = "Configuring OKTA Authentication"
   organization = "${var.okta_org}"
   token        = "${var.okta_token}"
+  ttl          = "${var.okta_ttl}"
+  max_ttl      = "${var.okta_max_ttl}"
 
   group {
     group_name = "admin"

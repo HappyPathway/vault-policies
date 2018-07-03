@@ -25,6 +25,18 @@ variable "okta_domain" {
   default = "happypathway.com"
 }
 
+variable "okta_ttl" {
+  type        = "string"
+  default     = "1h0m0s"
+  description = "OKTA Auth TTL"
+}
+
+variable "okta_max_ttl" {
+  type        = "string"
+  default     = "3h0m0s"
+  description = "OKTA Auth TTL"
+}
+
 variable "vault_ec2_user" {
   default = "darnold"
 }
