@@ -54,13 +54,13 @@ variable "organization" {
   description = "TFE Organization Name"
 }
 
-variable "consul_cluster" {
-  type        = "string"
-  description = "Address of Consul Cluster"
-}
-
 variable "consul_dc" {
   type        = "string"
   description = "Consul Datacenter. Default: dc1"
   default     = "dc1"
+}
+
+variable "cluster_owner" {
+  type        = "string"
+  description = "Value of Owner tag on ec2 instances"
 }
