@@ -31,3 +31,8 @@ resource "vault_policy" "production" {
   name   = "production"
   policy = "${file("vault_policies/production.hcl")}"
 }
+
+resource "vault_policy" "12factor" {
+  name   = "12factor"
+  policy = "${file("vault_policies/12factor.hcl")}"
+}
