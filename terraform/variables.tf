@@ -53,3 +53,14 @@ variable "organization" {
   type        = "string"
   description = "TFE Organization Name"
 }
+
+variable "consul_cluster" {
+  type        = "string"
+  description = "Address of Consul Cluster"
+}
+
+variable "consul_dc" {
+  type        = "string"
+  description = "Consul Datacenter. Default: dc1"
+  default     = "dc1"
+}
