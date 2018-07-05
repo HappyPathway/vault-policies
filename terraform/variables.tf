@@ -1,9 +1,6 @@
 variable "vault_leader" {}
 variable "vault_token" {}
 
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
-
 variable "max_lease_ttl" {
   default = 90
 }
@@ -18,11 +15,6 @@ variable "okta_org" {
 
 variable "okta_token" {
   type = "string"
-}
-
-variable "okta_domain" {
-  type    = "string"
-  default = "happypathway.com"
 }
 
 variable "okta_ttl" {
@@ -43,10 +35,6 @@ variable "vault_ec2_user" {
 
 variable "vault_iam_user" {
   default = "darnold"
-}
-
-variable "region" {
-  default = "us-east-1"
 }
 
 variable "organization" {
