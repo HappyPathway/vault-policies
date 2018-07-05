@@ -1,5 +1,6 @@
 resource "vault_auth_backend" "approle" {
   type = "approle"
+  path = "app-12factor"
 }
 
 resource "vault_approle_auth_backend_role" "approle" {
