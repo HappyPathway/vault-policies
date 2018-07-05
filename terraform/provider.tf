@@ -8,6 +8,6 @@ provider "aws" {
 }
 
 provider "consul" {
-  address    = "http://${data.aws_instances.consul.private_ips[0]}:8500"
+  address    = "http://${var.consul_cluster}:8500"
   datacenter = "${var.consul_dc}"
 }

@@ -4,6 +4,21 @@ resource "vault_okta_auth_backend" "okta" {
   token        = "${var.okta_token}"
   ttl          = "${var.okta_ttl}"
   max_ttl      = "${var.okta_max_ttl}"
+
+  group {
+    group_name = "admin"
+    policies   = ["admin"]
+  }
+
+  group {
+    group_name = "operators"
+    policies   = ["operator"]
+  }
+
+  group {
+    group_name = "developers"
+    policies   = ["developer"]
+  }
 }
 
 resource "vault_okta_auth_backend_group" "admin" {

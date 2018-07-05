@@ -60,7 +60,7 @@ variable "consul_dc" {
   default     = "dc1"
 }
 
-variable "cluster_owner" {
+variable "consul_cluster" {
   type        = "string"
-  description = "Value of Owner tag on ec2 instances"
+  description = "IP Address of consul cluster"
 }
