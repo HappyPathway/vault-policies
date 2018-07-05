@@ -31,8 +31,3 @@ resource "vault_policy" "production" {
   name   = "production"
   policy = "${file("vault_policies/production.hcl")}"
 }
-
-resource "vault_policy" "approle" {
-  name   = "approle"
-  policy = "${file("vault_policies/approle.hcl")}"
-}
