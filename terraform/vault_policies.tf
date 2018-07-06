@@ -31,3 +31,8 @@ resource "vault_policy" "production" {
   name   = "production"
   policy = "${file("vault_policies/production.hcl")}"
 }
+
+resource "vault_policy" "azure_server_pool" {
+  name   = "azure_server_pool"
+  policy = "${file("vault_policies/azure_server_pool.hcl")}"
+}
