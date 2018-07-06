@@ -1,5 +1,5 @@
 path "secret/serverpool/*" {
-  capabilities = ["read", "list"]
+  capabilities = ["read", "list", "create", "update"]
 }
 
 path "auth/token/create" {
