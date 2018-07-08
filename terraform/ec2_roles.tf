@@ -40,8 +40,9 @@ resource "vault_aws_auth_backend_client" "aws" {
 }
 
 resource "vault_aws_auth_backend_role" "ec2_dev" {
-  backend                        = "${vault_auth_backend.aws.path}"
-  bound_iam_role_arn             = "arn:aws:iam::753646501470:role/${var.organization}-dev"
+  backend = "${vault_auth_backend.aws.path}"
+
+  #bound_iam_role_arn             = "arn:aws:iam::753646501470:role/${var.organization}-dev"
   bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:instance-profile/${var.organization}-dev"
   auth_type                      = "iam"
   role                           = "${var.organization}-dev"
