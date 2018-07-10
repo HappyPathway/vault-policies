@@ -3,7 +3,7 @@ from boto import ec2
 from boto.exception import EC2ResponseError
 import time
 
-def scan():  
+def scan(owner):  
     e_conn = ec2.connect_to_region('us-east-1')
     for istance in e_conn.get_only_instances(filters={'tag:Owner': owner}):
         print(istance)
