@@ -10,6 +10,8 @@ resource "aws_iam_access_key" "vault_ec2_user" {
   ]
 }
 
+data "aws_caller_identity" "current" {}
+
 resource "aws_iam_user_policy" "vault_ec2_user" {
   name = "vault_auth-${var.vault_ec2_user}"
   user = "${aws_iam_user.vault_ec2_user.name}"
@@ -42,8 +44,7 @@ resource "vault_aws_auth_backend_client" "aws" {
 resource "vault_aws_auth_backend_role" "ec2_dev" {
   backend = "${vault_auth_backend.aws.path}"
 
-  #bound_iam_role_arn             = "arn:aws:iam::753646501470:role/${var.organization}-dev"
-  bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:instance-profile/${var.organization}-dev"
+  bound_iam_instance_profile_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/${var.organization}-dev"
   auth_type                      = "iam"
 
   # role                           = "${var.organization}-dev"
@@ -59,8 +60,7 @@ resource "vault_aws_auth_backend_role" "ec2_dev" {
 resource "vault_aws_auth_backend_role" "ec2_production" {
   backend = "${vault_auth_backend.aws.path}"
 
-  # bound_iam_role_arn             = "arn:aws:iam::753646501470:role/${var.organization}-production"
-  bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:instance-profile/${var.organization}-production"
+  bound_iam_instance_profile_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:instance-profile/${var.organization}-production"
 
   # auth_type                      = "iam"
   role                 = "${var.organization}-production"

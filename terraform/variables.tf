@@ -29,13 +29,9 @@ variable "okta_max_ttl" {
   description = "OKTA Auth TTL"
 }
 
-variable "vault_ec2_user" {
-  default = "darnold"
-}
+variable "vault_ec2_user" {}
 
-variable "vault_iam_user" {
-  default = "darnold"
-}
+variable "vault_iam_user" {}
 
 variable "organization" {
   type        = "string"
