@@ -9,20 +9,6 @@ variable "default_lease_ttl" {
   default = 1800
 }
 
-variable "okta_ttl" {
-  type        = "string"
-  default     = "1h0m0s"
-  description = "OKTA Auth TTL"
-}
-
-variable "okta_max_ttl" {
-  type        = "string"
-  default     = "3h0m0s"
-  description = "OKTA Auth TTL"
-}
-
-variable "vault_ec2_user" {}
-
 variable "vault_iam_user" {}
 
 variable "organization" {
