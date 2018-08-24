@@ -2,19 +2,11 @@ variable "vault_leader" {}
 variable "vault_token" {}
 
 variable "max_lease_ttl" {
-  default = 90
+  default = 3600
 }
 
 variable "default_lease_ttl" {
-  default = 30
-}
-
-variable "okta_org" {
-  type = "string"
-}
-
-variable "okta_token" {
-  type = "string"
+  default = 1800
 }
 
 variable "okta_ttl" {
