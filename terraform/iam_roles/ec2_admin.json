@@ -13,7 +13,7 @@
         },
         {
             "Effect": "Allow",
-            "Action": "iam:GetUser",
+            "Action": "iam:*",
             "Resource": "*"
         },
         {
