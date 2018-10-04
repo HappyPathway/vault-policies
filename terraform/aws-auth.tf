@@ -5,7 +5,7 @@ resource "vault_auth_backend" "aws" {
 resource "vault_aws_auth_backend_role" "admin" {
   backend                        = "${vault_auth_backend.aws.path}"
   role                           = "Darnold-Hashicorp-production"
-  auth_type                      = "ec2"
+  auth_type                      = "iam"
   bound_account_id               = "753646501470"
   bound_iam_instance_profile_arn = "arn:aws:iam::753646501470:role/Darnold-Hashicorp-production"
   inferred_entity_type           = "ec2_instance"
