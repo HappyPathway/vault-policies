@@ -7,6 +7,6 @@ path "ssh-dev/sign/dev" {
   capabilities = ["create", "update"]
 }
 
-path "ssh-production/sign/dev" {
+path "ssh-production/sign/*" {
   capabilities = ["create", "update"]
 }
