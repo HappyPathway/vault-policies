@@ -2,11 +2,11 @@ variable "vault_leader" {}
 variable "vault_token" {}
 
 variable "max_lease_ttl" {
-  default = 3600
+  default = 120
 }
 
 variable "default_lease_ttl" {
-  default = 1800
+  default = 60
 }
 
 variable "vault_iam_user" {}
