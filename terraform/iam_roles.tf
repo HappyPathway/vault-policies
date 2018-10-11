@@ -24,8 +24,8 @@ resource "aws_iam_user_policy" "vault_iam_user" {
 resource "vault_aws_secret_backend" "aws" {
   access_key                = "${aws_iam_access_key.vault_iam_user.id}"
   secret_key                = "${aws_iam_access_key.vault_iam_user.secret}"
-  #default_lease_ttl_seconds = "${var.default_lease_ttl}"
-  #max_lease_ttl_seconds     = "${var.max_lease_ttl}"
+  default_lease_ttl_seconds = "${var.default_lease_ttl}"
+  max_lease_ttl_seconds     = "${var.max_lease_ttl}"
 
   depends_on = [
     "aws_iam_user.vault_iam_user",
